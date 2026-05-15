@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RevDrive | Single Page Application</title>
+    <style>
+        /* --- GENERAL STYLES --- */
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; color: #333; }
+        
+        /* --- NAVIGATION --- */
+        nav { background: #1a1a1a; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 24px; font-weight: bold; color: #3498db; cursor: pointer; }
+        .nav-links button { background: none; border: none; color: white; font-size: 16px; margin-left: 20px; cursor: pointer; font-weight: bold; }
+        .nav-links button:hover { color: #3498db; }
+
+        /* --- SECTION CONTROL (The Magic) --- */
+        .page-section { display: none; min-height: 80vh; }
+        .active { display: block; } /* Only the active section shows */
+
+        /* --- HOME PAGE STYLES --- */
+        .hero { 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1000');
+            background-size: cover; background-position: center; height: 500px; color: white; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 10px; }
+        .btn { background: #3498db; color: white; padding: 15px 35px; text-decoration: none; border-radius: 5px; font-weight: bold; cursor: pointer; border: none; font-size: 18px; margin-top: 20px; }
+
+        /* --- MODELS PAGE STYLES --- */
+        .container { padding: 50px 5%; text-align: center; }
+        .car-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-top: 30px; }
+        .card { background: white; width: 300px; padding: 15px; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: 0.3s; }
+        .card:hover { transform: translateY(-10px); }
+        .card img { width: 100%; border-radius: 8px; }
+        .card h3 { margin: 15px 0 5px; }
+        .price { color: #2ecc71; font-size: 22px; font-weight: bold; margin: 10px 0; }
+        .spec { font-size: 14px; color: #666; margin-bottom: 15px; }
+
+        footer { background: #1a1a1a; color: white; text-align: center; padding: 25px; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+    <!-- Shared Navigation -->
+    <nav>
+        <div class="logo" onclick="showPage('home')">RE DRIVE</div>
+        <div class="nav-links">
+            <button onclick="showPage('home')">Home</button>
+            <button onclick="showPage('models')">Car Models</button>
+        </div>
+    </nav>
+
+    <!-- SECTION 1: HOME PAGE -->
+    <div id="home" class="page-section active">
+        <header class="hero">
+            <h1>Drive Your Future</h1>
+            <p>Experience the perfect blend of luxury and performance.</p>
+            <button class="btn" onclick="showPage('models')">Explore Inventory</button>
+        </header>
+        <div style="padding: 60px 10%; text-align: center;">
+            <h2>Premium Dealership Experience</h2>
+            <p>RevDrive is committed to providing the finest vehicles with transparent pricing and world-class service.</p>
+        </div>
+    </div>
+
+    <!-- SECTION 2: MODELS PAGE -->
+    <div id="models" class="page-section">
+        <div class="container">
+            <h1>Our Fleet</h1>
+            <p>Select a model to view pricing and specifications.</p>
+            
+            <div class="car-grid">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400" alt="Car">
+                    <h3>Titan GT-Sport</h3>
+                    <p class="spec">V8 Engine | 280 km/h</p>
+                    <p class="price">$45,000</p>
+                    <button class="btn" style="width:100%; padding: 10px;">Inquire</button>
+                </div>
+
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400" alt="Car">
+                    <h3>Explorer 4x4</h3>
+                    <p class="spec">AWD | Luxury Interior</p>
+                    <p class="price">$38,500</p>
+                    <button class="btn" style="width:100%; padding: 10px;">Inquire</button>
+                </div>
+
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1554744512-d6c603f27c54?w=400" alt="Car">
+                    <h3>EcoVolt Sedan</h3>
+                    <p class="spec">Electric | 500km Range</p>
+                    <p class="price">$52,000</p>
+                    <button class="btn" style="width:100%; padding: 10px;">Inquire</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 RevDrive Dealership | Developed by THEJAS M</p>
+    </footer>
+
+    <!-- Simple Script to Switch Pages -->
+    <script>
+        function showPage(pageId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show the clicked section
+            document.getElementById(pageId).classList.add('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+    </script>
+
+</body>
+</html>
