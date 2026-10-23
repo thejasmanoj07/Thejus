@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Student Record and Priority Task Management System">
+    <title>Structure | Management Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <a href="#" class="brand"><span class="brand-icon">S</span> Structure<span class="dot">.</span></a>
+        <p class="nav-heading">WORKSPACE</p>
+        <button class="nav-link active" data-page="overview">Overview</button>
+        <button class="nav-link" data-page="students">Student Records</button>
+        <button class="nav-link" data-page="tasks">Task Manager</button>
+        <div class="sidebar-footer">
+            <span class="status-dot"></span> Local storage enabled
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div>
+                <p class="muted">Workspace / Dashboard</p>
+                <h2 id="pageTitle">Overview</h2>
+            </div>
+            <span class="date" id="currentDate"></span>
+        </header>
+
+        <section class="page active" id="overview">
+            <div class="welcome">
+                <div>
+                    <p class="eyebrow">MANAGEMENT OVERVIEW</p>
+                    <h1>Your workspace, organized.</h1>
+                    <p>Manage student information and prioritize your work.</p>
+                </div>
+                <button class="primary" id="quickStudent">+ Add student</button>
+            </div>
+
+            <div class="stats">
+                <article class="stat-card">
+                    <span>Total students</span>
+                    <h2 id="totalStudents">0</h2>
+                    <small>Registered records</small>
+                </article>
+                <article class="stat-card">
+                    <span>Average marks</span>
+                    <h2 id="averageMarks">—</h2>
+                    <small>Across all students</small>
+                </article>
+                <article class="stat-card">
+                    <span>Pending tasks</span>
+                    <h2 id="totalTasks">0</h2>
+                    <small>Awaiting completion</small>
+                </article>
+                <article class="stat-card">
+                    <span>High priority</span>
+                    <h2 id="highTasks">0</h2>
+                    <small>Needs attention</small>
+                </article>
+            </div>
+
+            <section class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Recent students</h3>
+                        <p>Recently added student records</p>
+                    </div>
+                    <button class="text-button" data-open="students">View all →</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>NAME</th><th>ROLL NUMBER</th><th>MARKS</th><th>GRADE</th></tr>
+                        </thead>
+                        <tbody id="recentStudents"></tbody>
+                    </table>
+                </div>
+                <p class="empty" id="recentEmpty">No student records yet. Add your first student.</p>
+            </section>
+
+            <section class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Next tasks</h3>
+                        <p>Sorted by priority</p>
+                    </div>
+                    <button class="text-button" data-open="tasks">View all →</button>
+                </div>
+                <div id="recentTasks" class="task-preview"></div>
+                <p class="empty" id="taskPreviewEmpty">Your task queue is empty.</p>
+            </section>
+        </section>
+
+        <section class="page" id="students">
+            <div class="page-heading">
+                <div>
+                    <p class="eyebrow">ACADEMIC MANAGEMENT</p>
+                    <h1>Student records</h1>
+                    <p class="muted">Add, search, update, and delete academic records.</p>
+                </div>
+                <button class="primary" id="addStudent">+ Add student</button>
+            </div>
+
+            <section class="panel">
+                <div class="toolbar">
+                    <input id="studentSearch" type="search" placeholder="Search by name or roll number...">
+                    <span id="recordCount">0 records</span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>NAME</th><th>ROLL NUMBER</th><th>MARKS</th><th>GRADE</th><th>ACTIONS</th></tr>
+                        </thead>
+                        <tbody id="studentTable"></tbody>
+                    </table>
+                </div>
+                <p class="empty" id="studentEmpty">No matching student records.</p>
+            </section>
+        </section>
+
+        <section class="page" id="tasks">
+            <div class="page-heading">
+                <div>
+                    <p class="eyebrow">PRODUCTIVITY</p>
+                    <h1>Task manager</h1>
+                    <p class="muted">Prioritize tasks and process the most important work first.</p>
+                </div>
+                <button class="primary" id="addTask">+ Add task</button>
+            </div>
+
+            <section class="panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Pending task queue</h3>
+                        <p>High priority tasks are processed first.</p>
+                    </div>
+                    <button class="primary" id="processNext">Process next</button>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>TASK</th><th>PRIORITY</th><th>CREATED</th><th>ACTIONS</th></tr>
+                        </thead>
+                        <tbody id="taskTable"></tbody>
+                    </table>
+                </div>
+                <p class="empty" id="taskEmpty">No pending tasks. Create a task to get started.</p>
+            </section>
+
+            <section class="panel completed-panel">
+                <div class="panel-heading">
+                    <div>
+                        <h3>Recently processed</h3>
+                        <p id="completedText">No tasks processed yet.</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <footer>
+            STRUCTURE. <span>Student Records & Task Management System</span>
+        </footer>
+    </main>
+
+    <dialog id="studentDialog">
+        <form id="studentForm">
+            <div class="dialog-heading">
+                <div><p class="eyebrow">STUDENT DETAILS</p><h2 id="studentDialogTitle">Add student</h2></div>
+                <button type="button" class="close" data-close="studentDialog">×</button>
+            </div>
+            <label for="studentName">Full name</label>
+            <input id="studentName" maxlength="80" required placeholder="Enter student name">
+
+            <label for="rollNumber">Roll number</label>
+            <input id="rollNumber" maxlength="30" required placeholder="Enter unique roll number">
+
+            <label for="marks">Marks (0–100)</label>
+            <input id="marks" type="number" min="0" max="100" step="0.01" required placeholder="Enter marks">
+
+            <p class="grade-preview">Calculated grade: <strong id="gradePreview">—</strong></p>
+            <div class="dialog-actions">
+                <button type="button" class="secondary" data-close="studentDialog">Cancel</button>
+                <button type="submit" class="primary">Save record</button>
+            </div>
+        </form>
+    </dialog>
+
+    <dialog id="taskDialog">
+        <form id="taskForm">
+            <div class="dialog-heading">
+                <div><p class="eyebrow">TASK DETAILS</p><h2>Create a task</h2></div>
+                <button type="button" class="close" data-close="taskDialog">×</button>
+            </div>
+            <label for="taskName">Task description</label>
+            <input id="taskName" maxlength="120" required placeholder="What needs to be done?">
+
+            <label for="priority">Priority level</label>
+            <select id="priority">
+                <option value="1">High</option>
+                <option value="2" selected>Medium</option>
+                <option value="3">Low</option>
+            </select>
+            <p class="muted">Tasks with higher priority are processed first.</p>
+            <div class="dialog-actions">
+                <button type="button" class="secondary" data-close="taskDialog">Cancel</button>
+                <button type="submit" class="primary">Add task</button>
+            </div>
+        </form>
+    </dialog>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script src="script.js"></script>
+</body>
+</html>
